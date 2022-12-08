@@ -35,26 +35,26 @@ router.post("/", (req, res) => {
 });
 
 // Update
-router.put("/:nim", (req, res) => {
-  let body = req.body;
+router.put("/:params", (req, res) => {
   let params = req.params;
+  let body = req.body;
 
   db.query(
-    `UPDATE inventaris SET name=${body.name}, nim=${body.nim}, angkatan=${body.angkatan} WHERE nim=${params.nim}`,
+    `UPDATE inventaris SET code='${body.code}', name='${body.name}', bahanmerek='${body.bahanmerek}', jumlah=${body.jumlah}, gambar='${body.gambar}', decs='${body.decs}' WHERE code='${params.params}'`,
     (err, rows, field) => {
       if (err) throw err;
-      res.json(rows);
+      res.json([params, body]);
     }
   );
 });
 
 // Delete
-router.delete("/:nim", (req, res) => {
+router.delete("/", (req, res) => {
   db.query(
-    `DELETE FROM inventaris WHERE nim='${req.params.nim.toUpperCase()}'`,
+    `DELETE FROM inventaris WHERE code='${req.body.code}'`,
     (err, rows, field) => {
       if (err) throw err;
-      res.json(rows);
+      res.json(req.body.code);
     }
   );
 });
