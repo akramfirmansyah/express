@@ -1,0 +1,19 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src="https://cdn.tailwindcss.com")
+    script.
+      tailwind.config = {
+      theme: {
+      extend: {
+      colors: {
+      primary: '#30A8F9',
+      }
+      }
+      }
+      } 
+    link(href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet')
+  body.bg-slate-300.flex.justify-center.pt-8
+    block content

@@ -1,0 +1,39 @@
+extends layout
+
+block content
+  .bg-white.flex.items-center.flex-col.p-4.rounded.relative(class='w-4/5')
+    h1.text-2xl.text-center.font-bold.mb-4 Tabel #{title}
+    table.w-full.text-center
+        thead
+          tr
+            th.font-semibold.py-2.bg-primary.text-white.cursor-pointer.border.border-white
+              | No
+            th.font-semibold.py-2.bg-primary.text-white.cursor-pointer.border.border-white
+              | Kode
+            th.font-semibold.py-2.bg-primary.text-white.cursor-pointer.border.border-white
+              | Nama
+            th.font-semibold.py-2.bg-primary.text-white.cursor-pointer.border.border-white
+              | Bahan/Merek
+            th.font-semibold.py-2.bg-primary.text-white.cursor-pointer.border.border-white
+              | Jumlah
+            th.font-semibold.py-2.bg-primary.text-white.cursor-pointer.border.border-white
+              | Gambar
+            th.font-semibold.py-2.bg-primary.text-white.cursor-pointer.border.border-white
+              | Keterangan
+        tbody
+          each data in datas
+            tr
+              td.px-3.py-2.border
+                p= data.id
+              td.px-3.py-2.border
+                a.ease-out.duration-300(href=`/inventaris/${data.code}` class='hover:underline')= data.code
+              td.px-3.py-2.border
+                p= data.name
+              td.px-3.py-2.border
+                p= data.bahanmerek
+              td.px-3.py-2.border
+                p= data.jumlah
+              td.px-3.py-2.border.flex.justify-center 
+                img(src=data.gambar, alt=data.name class='w-4/5')
+              td.px-3.py-2.border
+                p= data.decs
