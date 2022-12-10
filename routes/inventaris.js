@@ -4,24 +4,30 @@ var db = require("../database");
 
 // GET
 router.get("/", (req, res) => {
-  db.query("SELECT * from inventaris", (err, rows, field) => {
-    if (err) throw err;
-    res.render("inventaris", { title: "Daftar Inventaris", datas: rows });
-  });
-});
+  let query = req.query;
+  let length = Object.keys(query).length;
 
-// GET data by Query
-router.get("/:params", (req, res) => {
-  let params = req.params;
-
-  db.query(
-    `SELECT * FROM inventaris WHERE code = ?`,
-    [params.params],
-    (err, rows, field) => {
+  if (length > 0) {
+    db.query(
+      `SELECT * FROM inventaris WHERE name = ?`,
+      [query.name],
+      (err, rows, field) => {
+        if (err) throw err;
+        res.render("inventaris", {
+          title: "Daftar Inventaris",
+          datas: rows
+        });
+      }
+    );
+  } else {
+    db.query("SELECT * from inventaris", (err, rows, field) => {
       if (err) throw err;
-      res.render("inventaris", { title: "Daftar Inventaris", datas: rows });
-    }
-  );
+      res.render("inventaris", {
+        title: "Daftar Inventaris",
+        datas: rows,
+      });
+    });
+  }
 });
 
 // POST

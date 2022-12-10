@@ -1,8 +1,17 @@
 extends layout
 
 block content
-  .bg-white.flex.items-center.flex-col.p-4.rounded.relative(class='w-4/5')
-    h1.text-2xl.text-center.font-bold.mb-4 Tabel #{title}
+  div(class='w-4/5 bg-white flex items-center flex-col p-4 rounded')
+    h1.text-2xl.text-center.font-bold.mb-4 
+      a(href=`/inventaris`) Tabel #{title}
+    div.w-full.flex.justify-between.mb-4
+      form.relative.rounded.overflow-hidden(method="get")
+        input(type='text' name="name" class='border focus:outline-none px-3 py-2 bg-slate-200' placeholder="Nama Inventaris")
+        button.bg-primary.h-full.aspect-square.absolute.right-0.bottom-0.flex.justify-center.items-center.text-white
+          i.bx.bx-search.bx-sm
+      button(onclick="ShowFormAddFunction()" class=" border bg-primary text-white flex items-center px-3 py-2 rounded overflow-hidden")
+        | Add New
+        i.bx.bx-plus.bx-sm.ml-2
     table.w-full.text-center
         thead
           tr
@@ -20,13 +29,15 @@ block content
               | Gambar
             th.font-semibold.py-2.bg-primary.text-white.cursor-pointer.border.border-white
               | Keterangan
+            th.font-semibold.py-2.bg-primary.text-white.cursor-pointer.border.border-white
+              | Action
         tbody
-          each data in datas
+          each data, index in datas
             tr
               td.px-3.py-2.border
-                p= data.id
+                p= index+1 
               td.px-3.py-2.border
-                a.ease-out.duration-300(href=`/inventaris/${data.code}` class='hover:underline')= data.code
+                p= data.code
               td.px-3.py-2.border
                 p= data.name
               td.px-3.py-2.border
@@ -34,6 +45,40 @@ block content
               td.px-3.py-2.border
                 p= data.jumlah
               td.px-3.py-2.border.flex.justify-center 
-                img(src=data.gambar, alt=data.name class='w-4/5')
+                img(src=data.gambar, alt=data.name class='max-h-[200px]')
               td.px-3.py-2.border
                 p= data.decs
+              td.px-3.py-2.border
+                button
+                  i.bx.bxs-edit-alt.bx-sm
+                button
+                  i.bx.bxs-trash.bx-sm
+  div(id="formAddInventaris" class="hidden left-1/2 -translate-x-1/2 z-10 bg-white border border-black w-1/3 rounded-lg")
+    div(class="p-4 relative w-full")
+      h1.text-2xl.text-center.font-bold.mb-4 Tambah Inventaris
+      from(class="flex flex-wrap gap-4 flex-col justify-between w-full mb-4" method="post")
+        div(class="flex flex-col w-full") 
+          label(for="addCode" class="mb-1") Kode
+          input#addCode(type="text", name="code" placeholder="Contoh: A-001-22" class="px-3 py-2 border rounded w-full")
+        div(class="flex flex-col w-full") 
+          label(for="addName" class="mb-1") Nama
+          input#addName(type="text", name="name" placeholder="Contoh: Kursi" class="px-3 py-2 border rounded")
+        div(class="flex flex-col w-full")
+          label(for="addBahanMerek" class="mb-1") Bahan/Merek
+          input#addBahanMerek(type="text", name="bahanmerek" placeholder="Contoh: Kayu" class="px-3 py-2 border rounded")
+        div(class="flex gap-4 w-full") 
+          div(class="flex flex-col w-1/2")
+            label(for="addJumlah" class="mb-1") Jumlah
+            input#addJumlah(type="number", name="jumlah" value=1 class="px-3 py-2 border rounded")
+          div(class="flex flex-col grow")
+            label(for="addDecs" class="mb-1") Deskripsi
+            select#addDecs(name="decs" class="px-3 py-2 rounded")
+              option(value="baik") Baik 
+              option(value="kurang baik") Kurang Baik
+              option(value="hilang") Hilang
+        div(class="flex flex-col w-fit")
+          label(for="addGambar" class="mb-1") Gambar
+          input#addGambar(type="file" accept=".png, .jpg, .jpeg" name="gambar" class="py-2")
+        input(type="submit", value="Tambahkan" class="bg-primary py-2 text-white rounded font-semibold basis-1/2")
+      button(class="bg-red-600 py-2 text-white rounded font-semibold w-full" onclick="hiddenFormAddInventaris()") Keluar
+  script(src="/javascripts/script.js") 
