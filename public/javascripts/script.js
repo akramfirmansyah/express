@@ -1,9 +1,9 @@
 let formAdd = document.getElementById("formAddInventaris")
 
 function ShowFormAddFunction() {
-    formAdd.classList.replace("hidden", "absolute")
+    formAdd.classList.replace("hidden", "fixed")
 }
 
 function hiddenFormAddInventaris() {
-    formAdd.classList.replace("absolute", "hidden")
+    formAdd.classList.replace("fixed", "hidden")
 }
