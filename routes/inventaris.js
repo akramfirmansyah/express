@@ -36,7 +36,7 @@ router.post("/", (req, res) => {
 
   db.query(`INSERT INTO inventaris SET ?`, body, (err, rows, field) => {
     if (err) throw err;
-    res.json(rows);
+    res.redirect("/inventaris")
   });
 });
 
@@ -60,7 +60,6 @@ router.delete("/", (req, res) => {
     `DELETE FROM inventaris WHERE code='${req.body.code}'`,
     (err, rows, field) => {
       if (err) throw err;
-      res.json(req.body.code);
     }
   );
 });
